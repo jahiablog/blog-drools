@@ -1,0 +1,50 @@
+###############################################################################
+package org.jahia.modules.blogdrools.rules
+
+#list any import classes here.
+import org.jahia.services.content.rules.*
+import org.slf4j.Logger
+
+expander rules.dsl
+
+#declare any global variables here
+global User user
+global Service service
+global Logger logger
+global RulesNotificationService notificationService
+###############################################################################
+
+
+# Example 1, set a property when a node is created
+rule "Example 1, set a property when a node is created"
+   when
+       A new node is created
+                - the node has the type jnt:user
+   then
+       Log "Start: Adding a property for this user " + node.getName()
+       Set the property j:organization of the node with the value "Hello world from Blog Examples"
+       Log "End: Adding a property for this user " + node.getName()
+end
+
+
+# Example 2, Mail ourselve when a user was created
+rule "Example 2, Mail ourselve when a user was created"
+   when
+       A new node is created
+       - the node has the type jnt:user
+   then
+       Log "Start: Sending mail to admin " + node.getName()
+       Notify "root" user with mail template "/modules/blog-drools/templates/mail/newUser.vm" from "jahiasystem@rvt.dds.nl"
+       Log "End: End sending mail to admin " + node.getName()
+end
+
+# Example 2, Mail ourselve when a user was created, but using a direct java call
+#rule "Example 2, Mail ourselve when a user was created"
+#   when
+#       A new node is created
+#       - the node has the type jnt:user
+#   then
+#       Log "Start: Sending mail to admin " + node.getName()
+#       > notificationService.notifyUser("root","/modules/blog-drools/templates/mails/newUser.vm","jahiasystem@rvt.dds.nl", drools);
+#       Log "End: End sending mail to admin" + node.getName()
+#end

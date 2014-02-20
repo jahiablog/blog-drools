@@ -1,0 +1,13 @@
+#* @vtlvariable name="currentUser" type="org.jahia.services.content.JCRNodeWrapper" *#
+#* @vtlvariable name="bundle" type="java.util.ResourceBundle" *#
+<html>
+<body>
+<h1>Dear Root<br />
+A new user was created</h1>
+
+Login: ${currentNode.getProperty("j:nodename").getString()}<br/>
+First Name: ${currentNode.getProperty("j:firstName").getString()}<br/>
+lastName Name: ${currentNode.getProperty("j:lastName").getString()}<br/>
+
+</body>
+</html>modules.blog-drools.templates.mail.newUser
